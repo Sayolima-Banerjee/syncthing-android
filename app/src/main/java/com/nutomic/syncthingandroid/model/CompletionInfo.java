@@ -10,7 +10,31 @@ package com.nutomic.syncthingandroid.model;
  */
 public class CompletionInfo {
     public double completion = 100;
+    
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setContentTitle("Files Synchronization Complete")
+        .setContentText("All your files have successfully synchronized !")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    
+    
+Intent intent = new Intent(this, AlertDetails.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
+NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setContentTitle("Files Synchronization Complete")
+        .setContentText("All your files have successfully synchronized !")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+       
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true);
+
+    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+notificationManager.notify(0001, builder.build());
+    
     /**
      * The following values are only returned by the REST API call
      * to ""/completion". We will need them in the future to show
